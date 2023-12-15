@@ -34,18 +34,25 @@ function fetchData(urlAPI, callback) {
 
 // Realiza una serie de solicitudes anidadas y muestra los resultados
 fetchData(`${API}/products`, function (error1, data1) {
+    // Verifica si hay un error en la primera solicitud
     if (error1) return console.error(error1);
 
+    // Primera solicitud exitosa
+    // Realiza la segunda solicitud usando datos de la primera
     fetchData(`${API}/products/${data1[0].id}`, function (error2, data2) {
+        // Verifica si hay un error en la segunda solicitud
         if (error2) return console.error(error2);
 
+        // Segunda solicitud exitosa
+        // Realiza la tercera solicitud usando datos de la segunda
         fetchData(`${API}/categories/${data2?.category?.id}`, function (error3, data3) {
+            // Verifica si hay un error en la tercera solicitud
             if (error3) return console.error(error3);
 
             // Imprime algunos datos obtenidos de las solicitudes
-            console.log(data1[0]);
-            console.log(data2.title);
-            console.log(data3.name);
+            console.log(data1[0]);         // Datos de la primera solicitud
+            console.log(data2.title);      // Título de la segunda solicitud
+            console.log(data3.name);       // Nombre de la tercera solicitud
         });
     });
 });
